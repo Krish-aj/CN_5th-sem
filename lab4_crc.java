@@ -1,104 +1,59 @@
- 
-import java.io.*; 
-import java.util.*; 
-class CRC 
-{ 
- public static void main(String a[]) throws IOException 
- { 
-  Scanner sc=new Scanner(System.in); 
-  int[] message; 
-  int[] gen; 
-  int[] app_message; 
-  int[] rem; 
-  int[] trans_message; 
-  int message_bits,gen_bits,total_bits; 
-   
-  System.out.println("Enter no bits in mwssage:"); 
-  message_bits=sc.nextInt(); 
-   
-  message=new int [message_bits]; 
-  System.out.println("\nEnter message bits:"); 
-  for(int i=0; i<message_bits;i++) 
-   message[i]= sc.nextInt(); 
-   
-  System.out.println("\nEnter number of bits in gen:"); 
-  gen_bits= sc.nextInt(); 
-   
-  gen=new int[gen_bits]; 
-  System.out.println("\nEnter gen bits:"); 
-  for(int i=0;i<gen_bits;i++) 
-   gen[i]= sc.nextInt(); 
-   
-  total_bits=message_bits+gen_bits-1; 
-   
-  app_message=new int[total_bits]; 
-  rem=new int[total_bits]; 
-  trans_message=new int[total_bits]; 
-   
-  for(int i=0;i<message.length;i++) 
-   app_message[i]=message[i]; 
-   
-  System.out.println("\nMessage bits are:"); 
-  for(int i=0;i<message_bits;i++) 
-   System.out.print("\t"+message[i]); 
-  
-  System.out.println("\nGenerators bits are:"); 
-  for(int i=0;i<gen_bits;i++) 
-   System.out.print("\t"+gen[i]); 
- 
-
-  System.out.println("\nAppended message is:"); 
-  for(int i=0;i<app_message.length;i++) 
-   System.out.print("\t"+app_message[i]); 
-   
-  for(int j=0;j<app_message.length;j++) 
-   rem[j]=app_message[j]; 
- 
-  rem=computecrc(app_message,gen,rem); 
-   
-  for(int i=0;i<app_message.length;i++) 
-   trans_message[i]=(app_message[i]^rem[i]); 
-   
-  System.out.println("\nTransmitted message from the transmitter is:"); 
-  for(int i=0;i<trans_message.length;i++) 
-   System.out.print("\t"+trans_message[i]); 
-  
-  System.out.println("\nEnter received message of"+total_bits+"bits at receiver end:"); 
-  for(int i=0;i<trans_message.length;i++) 
-   trans_message[i]= sc.nextInt(); 
-   
-  System.out.println("\nReceived message is:"); 
-  for(int i=0;i<trans_message.length;i++) 
-   System.out.print("\t"+trans_message[i]); 
-   
-  for(int j=0;j<trans_message.length;j++) 
-   rem[j]=trans_message[j]; 
- 
-  rem=computecrc(trans_message,gen,rem); 
-  for(int i=0;i<rem.length;i++) 
-  { 
-   if(rem[i]!=0) 
-   { 
-    System.out.println("\nThere is error in the received message"); 
-    break; 
-   } 
-   if(i==rem.length-1) 
-    System.out.println("\nThere is no erron in the received mesage!!"); 
-  } 
- } 
- static int[] computecrc(int app_message[],int gen[], int rem[]) 
- { 
-  int current=0; 
-  while(true) 
-  { 
-   for(int i=0;i<gen.length;i++) 
-    rem[current+i]=(rem[current+i]^gen[i]); 
-   while(rem[current]==0 && current!=rem.length-1) 
-
-        current++; 
-if((rem.length-current)<gen.length) 
-break; 
-} 
-return rem; 
-} 
+import java.util.Scanner;
+public class CRC1 {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        // Input Data Stream
+        System.out.print("Enter message bits: ");
+        String message = sc.nextLine();
+        System.out.print("Enter generator: ");
+        String generator = sc.nextLine();
+        int data[] = new int[message.length() + generator.length() - 1];
+        int divisor[] = new int[generator.length()];
+        for (int i = 0; i < message.length(); i++)
+            data[i] = Integer.parseInt(message.charAt(i) + "");
+        for (int i = 0; i < generator.length(); i++)
+            divisor[i] = Integer.parseInt(generator.charAt(i) + "");
+        // Calculation of CRC
+        for (int i = 0; i < message.length(); i++) {
+            if (data[i] == 1)
+                for (int j = 0; j < divisor.length; j++)
+                    data[i + j] ^= divisor[j];
+        }
+        // Display CRC
+        System.out.print("The checksum code is: ");
+        for (int i = 0; i < message.length(); i++)
+            data[i] = Integer.parseInt(message.charAt(i) + "");
+        for (int i = 0; i < data.length; i++)
+         System.out.print(data[i]);
+        System.out.println();
+        // Check for input CRC code
+        System.out.print("Enter checksum code: ");
+        message = sc.nextLine();
+        System.out.print("Enter generator: ");
+        generator = sc.nextLine();
+        data = new int[message.length() + generator.length() - 1];
+        divisor = new int[generator.length()];
+        for (int i = 0; i < message.length(); i++)
+            data[i] = Integer.parseInt(message.charAt(i) + "");
+        for (int i = 0; i < generator.length(); i++)
+            divisor[i] = Integer.parseInt(generator.charAt(i) + "");
+        // Calculation of remainder
+        for (int i = 0; i < message.length(); i++) {
+            if (data[i] == 1)
+                for (int j = 0; j < divisor.length; j++)
+                    data[i + j] ^= divisor[j];
+        }
+        // Display validity of data
+        boolean valid = true;
+        for (int i = 0; i < data.length; i++) {
+            if (data[i] == 1) {
+                valid = false;
+                break;
+            }
+        }
+        if (valid)
+            System.out.println("Data stream has no error and is valid");
+        else
+         System.out.println("Data stream is invalid. CRC error occurred.");
+    }
 }
