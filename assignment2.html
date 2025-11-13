@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+            color: #1f2937;
+            margin: 0;
+            padding: 1rem;
+        } 
+        
+        h2 { 
+            text-align: center; 
+            color: #111827; /* Dark text */
+            font-size: 2rem; 
+            font-weight: 700;
+        } 
+        
+        /* Styling the form container */ 
+        .form-container { 
+            background-color: #ffffff; /* White card */
+            border-radius: 0.75rem; /* 12px */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 896px;
+            margin: 2rem auto;
+            padding: 2rem; 
+            box-sizing: border-box;
+        } 
+        
+        /* Table alignment */ 
+        table { 
+            width: 100%; 
+            margin: 0 auto; 
+            border-collapse: collapse;
+        } 
+        
+        td { 
+            padding: 10px; 
+            vertical-align: top;
+        }
+
+        td:first-child {
+            width: 30%; /* Give labels a consistent width */
+        }
+        
+        /* Styling input elements */ 
+        input[type="text"], 
+        input[type="email"], 
+        input[type="password"], 
+        input[type="date"], 
+        input[type="tel"],
+        select, 
+        textarea { 
+            width: 100%; 
+            padding: 0.75rem; 
+            border: 1px solid #d1d5db; /* Gray border */
+            border-radius: 0.5rem; /* 8px */
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            box-sizing: border-box;
+        } 
+        
+        input[type="radio"], input[type="checkbox"] { 
+            margin-right: 5px; 
+            accent-color: #2563EB; /* Blue accent */
+        } 
+        
+        /* Button styling */ 
+        input[type="submit"] { 
+            background-color: #2563EB; /* Blue */
+            color: white; 
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.75rem 1.5rem; 
+            border: none; 
+            border-radius: 0.5rem; 
+            cursor:pointer; 
+            transition: background-color 0.2s;
+        } 
+        
+        input[type="submit"]:hover { 
+            background-color: #1d4ed8; /* Darker Blue */
+        } 
+        
+        /* Font size and color styling */ 
+        label { 
+            font-size: 1rem; 
+            font-weight: 600;
+            color: #374151; 
+        } 
+        
+        th { 
+            font-size: 1.5rem; 
+            font-weight: 700;
+            color: #2563EB; /* Blue */
+            text-align: left; 
+            padding: 10px;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 1.5rem;
+        } 
+        
+        .note { 
+            font-size: 0.875rem; 
+            color:#6b7280; /* Gray */
+        } 
+
+        /* --- Styles for the success message --- */
+        #success-message {
+            display: none; /* Hidden by default */
+        }
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+        .details-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .details-list li {
+            display: flex;
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+        }
+        .details-list li strong {
+            font-weight: 600;
+            color: #111827;
+            width: 8rem; /* Consistent label width */
+            flex-shrink: 0;
+        }
+    </style> 
+</head> 
+<body> 
+    
+    <h2>Registration Form</h2> 
+    
+    <div class="form-container" id="form-wrapper"> 
+        <form id="registration-form" action="#" method="post" autocomplete="on"> 
+            <table> 
+                <tr> 
+                    <th colspan="2">Personal Information</th> 
+                </tr> 
+                <tr> 
+                    <td><label for="fname">Full Name:</label></td> 
+                    <td><input type="text" id="fname" name="fname" required></td> 
+                </tr> 
+                <tr> 
+                    <td><label for="email">Email:</label></td> 
+                    <td><input type="email" id="email" name="email" required></td> 
+                </tr> 
+                <tr> 
+                    <td><label for="password">Password:</label></td> 
+                    <td><input type="password" id="password" name="password" required></td> 
+                </tr> 
+                <tr> 
+                    <td><label for="dob">Date of Birth:</label></td> 
+                    <td><input type="date" id="dob" name="dob" required></td> 
+                </tr> 
+                <tr> 
+                    <td><label for="phone">Phone Number:</label></td> 
+                    <td><input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required></td> 
+                </tr> 
+                <tr> 
+                    <td><label>Gender:</label></td> 
+                    <td> 
+                        <input type="radio" id="male" name="gender" value="male" required> 
+                        <label for="male">Male</label> 
+                        <input type="radio" id="female" name="gender" value="female"> 
+                        <label for="female">Female</label> 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td><label for="course">Select Course:</label></td> 
+                    <td> 
+                        <select id="course" name="course"> 
+                            <option value="Computer Science">Computer Science</option> 
+                            <option value="Information Technology">Information Technology</option> 
+                        </select> 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td><label>Hobbies:</label></td> 
+                    <td> 
+                        <input type="checkbox" id="sports" name="hobbies" value="Sports"> 
+                        <label for="sports">Sports</label> 
+                        <input type="checkbox" id="music" name="hobbies" value="Music"> 
+                        <label for="music">Music</label> 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td><label for="address">Address:</label></td> 
+                    <td><textarea id="address" name="address" rows="4" required></textarea></td> 
+                </tr> 
+                <tr> 
+                    <td colspan="2"> 
+                        <p class="note">* All fields are mandatory</p> 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td colspan="2" style="text-align: center;"> 
+                        <input type="submit" value="Submit"> 
+                    </td> 
+                </tr> 
+            </table> 
+        </form>
+
+        <!-- This is the success message, hidden by default -->
+        <div id="success-message">
+            <h2 class="page-title">Registration Done!</h2>
+            <p style="font-size: 1rem; line-height: 1.6; color: #374151;">
+                Thank you for registering. Here are the details you submitted:
+            </p>
+            <ul class="details-list">
+                <li><strong>Full Name:</strong> <span id="display-name"></span></li>
+                <li><strong>Email:</strong> <span id="display-email"></span></li>
+                <li><strong>Date of Birth:</strong> <span id="display-dob"></span></li>
+                <li><strong>Phone:</strong> <span id="display-phone"></span></li>
+                <li><strong>Gender:</strong> <span id="display-gender"></span></li>
+                <li><strong>Course:</strong> <span id="display-course"></span></li>
+                <li><strong>Hobbies:</strong> <span id="display-hobbies"></span></li>
+                <li><strong>Address:</strong> <span id="display-address"></span></li>
+            </ul>
+        </div>
+    </div> 
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Select the form and the elements we will modify
+            const regForm = document.getElementById('registration-form');
+            const formContainer = document.getElementById('form-wrapper');
+            const successDiv = document.getElementById('success-message');
+
+            // Listen for the form's submit event
+            regForm.addEventListener('submit', function(e) {
+                e.preventDefault(); // Stop the page from reloading
+
+                // --- 1. Get Values from Form ---
+                const name = document.getElementById('fname').value;
+                const email = document.getElementById('email').value;
+                const dob = document.getElementById('dob').value;
+                const phone = document.getElementById('phone').value;
+                const course = document.getElementById('course').value;
+                const address = document.getElementById('address').value;
+
+                // Get Gender
+                const genderEl = document.querySelector('input[name="gender"]:checked');
+                const gender = genderEl ? genderEl.value : 'Not specified';
+                
+                // Get Hobbies
+                const hobbyNodes = document.querySelectorAll('input[name="hobbies"]:checked');
+                let hobbies = [];
+                hobbyNodes.forEach(node => {
+                    hobbies.push(node.value);
+                });
+                const hobbiesStr = hobbies.length > 0 ? hobbies.join(', ') : 'None';
+
+                // --- 2. Display Values on Success Page ---
+                document.getElementById('display-name').textContent = name;
+                document.getElementById('display-email').textContent = email;
+                document.getElementById('display-dob').textContent = dob;
+                document.getElementById('display-phone').textContent = phone;
+                document.getElementById('display-gender').textContent = gender;
+                document.getElementById('display-course').textContent = course;
+                document.getElementById('display-hobbies').textContent = hobbiesStr;
+                document.getElementById('display-address').textContent = address;
+
+                // --- 3. Hide Form and Show Success Message ---
+                regForm.style.display = 'none';
+                successDiv.style.display = 'block';
+
+                // Optional: Change the main h2 title
+                document.querySelector('h2').textContent = "Registration Successful";
+            });
+        });
+    </script>
+</body> 
+</html>
